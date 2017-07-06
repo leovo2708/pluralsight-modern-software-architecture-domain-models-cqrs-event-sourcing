@@ -1,0 +1,37 @@
+﻿body {
+    padding-top: 90px;
+    padding-bottom: 120px;
+}
+
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.list-group a:hover {
+    background-color: #f00;
+    opacity: 0.5;
+}
+
+.slot {
+    color: #111;
+    font-weight: bold;
+}
+
+.slot-hour {
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.slot-free {
+    background: #98fb98;
+    color: #444;
+    font-weight: 400;
+}
+
+.slot-taken {
+    background: #282;
+    color: #aaa;
+    font-weight: bold;
+}

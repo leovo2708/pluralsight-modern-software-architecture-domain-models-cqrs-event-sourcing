@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CC2E01BC-B7AC-46F3-8045-E6E12C7A0AD4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Module5.Premium.Command</RootNamespace>
+    <AssemblyName>Module5.Premium.Command</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EventBuilder.cs" />
+    <Compile Include="Model\EventType.cs" />
+    <Compile Include="Model\Match.cs" />
+    <Compile Include="Model\Score.cs" />
+    <Compile Include="Model\TeamId.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EventSourceManager.cs" />
+    <Compile Include="Services\MatchSynchronizer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Module5.Premium.Infrastructure\Module5.Premium.Infrastructure.csproj">
+      <Project>{93b401be-e527-400e-9572-0b0a8ff9f9eb}</Project>
+      <Name>Module5.Premium.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Module5.Premium.Shared\Module5.Premium.Shared.csproj">
+      <Project>{111de181-66cb-4ba2-9a96-602c48a32f52}</Project>
+      <Name>Module5.Premium.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

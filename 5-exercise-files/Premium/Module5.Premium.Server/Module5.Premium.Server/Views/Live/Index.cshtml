@@ -1,0 +1,33 @@
+﻿@model Module5.Premium.Server.ViewModels.LiveViewModel
+
+<script type="text/javascript" src="@Url.Content("~/content/scripts/jquery.signalR-2.2.0.min.js")"></script>
+<script type="text/javascript" src="~/signalr/hubs"></script>
+
+<div id="listOfMatches">
+    @Html.Partial("_live")
+</div>
+
+<!-- Code to update the page -->
+<script>
+    $(function() {
+        // Reference the auto-generated proxy for the hub.  
+        var liveScore = $.connection.liveScoreHub;
+
+        // Function to be called back from the server when changes are detected
+        liveScore.client.refreshPage = function () {
+            $.ajax({
+                url: "/live/update",
+                cache: false,
+                dataType: "html",
+                success: function (data) {
+                    $("#listOfMatches").html(data);
+                }
+            });
+        };
+
+        // Start 
+        $.connection.hub.start().done(function () {
+            // Nothing special to do here
+        });
+    });
+</script>

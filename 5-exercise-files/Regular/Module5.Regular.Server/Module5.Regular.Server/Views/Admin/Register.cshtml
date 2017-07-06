@@ -1,0 +1,43 @@
+﻿@model Module5.Regular.Server.Models.RegisterViewModel
+
+<div class="col-xs-6">
+    <h2>Pending matches</h2>
+    @if (Model.Matches.Count == 0)
+    {
+        <p class="text-muted">No matches found.</p>
+        return;
+    }
+    
+    <table class="table table-condensed table-bordered">
+        @foreach (var m in Model.Matches)
+        {
+            <tr>
+                <td>@m.Team1</td>
+                <td>vs</td>
+                <td>@m.Team2</td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+<div class="col-xs-6">
+    <h2>Add new match</h2>
+
+    <form method="POST" action="/admin/register">
+        <div class="form-group">
+            <label for="team1">ID</label>
+            <input type="text" class="form-control" name="id" id="id" value="@Model.Id" placeholder="XX999">
+        </div>        
+        <div class="form-group">
+            <label for="team1">Home</label>
+            <input type="text" class="form-control" name="team1" id="team1" value="@Model.Team1" placeholder="Home team name">
+        </div>
+        <div class="form-group">
+            <label for="team2">Visitors</label>
+            <input type="text" class="form-control" name="team2" id="team2" value="@Model.Team2" placeholder="Visitors team name">
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+

@@ -1,0 +1,34 @@
+﻿@model Module5.Premium.Server.ViewModels.IndexViewModel
+
+<style>
+.index-team {
+    display: inline-block;
+    width: 50px;
+}    
+    </style>
+
+<div class="col-xs-4">
+    @if (!Model.ScheduledMatches.Any())
+    {
+        <p>No matches found.</p>
+        return;
+    }
+    <table id="listOfMatches" class="table table-bordered table-condensed table-hover">
+        <caption><h3>Scheduled Matches</h3></caption>
+        @foreach (var m in Model.ScheduledMatches)
+        {
+            <tr id="@m.Id">
+                <td>@m.Team1</td>
+                <td>vs.</td>
+                <td>@m.Team2</td>
+            </tr>
+        }
+    </table>
+</div>
+
+<script type="text/javascript">
+    $("#listOfMatches tr").on("click", function () {
+        var id = $(this).attr("id");
+        window.location.href = "/match/index/" + id;
+    })
+</script>

@@ -1,0 +1,112 @@
+﻿@model Module5.Deluxe.Server.ViewModels.IndexViewModel
+
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6">
+        @if (Model.CourtSchedules.Count == 0)
+        {
+            <h2>No courts found.</h2>
+            return;
+        }
+        
+        <div role="tabpanel">
+            <!-- Nav tabs -->
+            <ul class="nav nav-pills" role="tablist">
+                @{ var firstTab = true; }
+                @foreach (var schedule in Model.CourtSchedules)
+                {
+                    var active = firstTab ? "active" : "";
+                    firstTab = false;
+                    var courtId = String.Format("court-{0}", schedule.CourtId);
+                    
+                    <li role="presentation" class="@active">
+                        <a href="#@courtId" aria-controls="@courtId" role="tab" data-toggle="tab" class="btn">
+                            @schedule.CourtName
+                        </a>
+                    </li>
+                }
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                @{ var firstTabContent = true; }
+                @foreach (var schedule in Model.CourtSchedules)
+                {
+                    var active = firstTabContent ? "active" : "";
+                    firstTabContent = false;
+                    var tabId = String.Format("court-{0}", schedule.CourtId);
+                    <div role="tabpanel" class="tab-pane @active" id="@tabId">
+                        <table class="table-bordered table table-condensed">
+                            @foreach (var slot in schedule.Slots)
+                            {
+                                var i = 1;
+                                do
+                                {
+                                    var display = slot.IsAvailable() ? "Available" : slot.Name;
+                                    var css = slot.IsAvailable() ? "slot-free" : "slot-taken";
+                                    var starting = slot.StartingAt + (i - 1);
+                                    <tr class="slot @css">
+                                        <td class="slot-hour">@String.Format("{0}:00", starting.ToString("D2"))</td>
+                                        <td>
+                                            @if (slot.IsAvailable())
+                                            {
+                                                <button onclick="book(@schedule.CourtId, @starting)">@display</button>
+                                            }
+                                            else
+                                            {
+                                                @display
+                                            }
+                                        </td>
+                                    </tr>
+                                    i++;
+                                } while (i <= slot.Length);
+                            }
+                        </table>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+    
+    <div class="col-xs-12 col-sm-6">
+        <button id="bookNow" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#bookingPanel" aria-expanded="false" aria-controls="bookingPanel">
+            Book now
+        </button>
+        <div class="collapse" id="bookingPanel">
+            <div class="well">
+                <form method="post" action="@Url.Action("add", "booking")">
+                    <div class="form-group">
+                        <label for="courtid">Court</label>
+                        <br />
+                        <select style="padding: 4px; width: 100%" name="courtid" id="courtid">
+                            @foreach (var c in Model.CourtSchedules)
+                            {
+                                <option value="@c.CourtId">@c.CourtName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="hour">Time of the day</label>
+                        <input type="number" class="form-control" name="hour" id="hour" placeholder="Start time">
+                    </div>
+                    <div class="form-group">
+                        <label for="length">Length</label>
+                        <br />
+                        <select style="padding: 4px; width: 100%" name="length" id="length">
+                            <option value="1">1 hour</option>
+                            <option value="2">2 hours</option>
+                            <option value="3">3 hours</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="length">Name</label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                    </div>
+                    <button class="btn btn-success">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

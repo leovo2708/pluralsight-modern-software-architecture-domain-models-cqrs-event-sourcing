@@ -1,0 +1,81 @@
+﻿@model Module5.Premium.Server.ViewModels.MatchViewModel
+
+<style>
+    .match-period-container {
+        text-align: center;
+    }
+    .match-period-current {
+        font-size: 3em;
+    }
+    .match-period-label {
+        font-size: 0.8em;
+    }
+    .match-team {
+        font-size: 1.3em;
+        font-weight: bold;
+    }
+    .match-team-score {
+        font-size: 1.6em;
+        font-weight: bold;
+        color: #00f;
+    }
+</style>
+
+@{
+    var scoreDisabled = Model.Actions.CanScoreGoal ? "" : "disabled";
+    var startDisabled = Model.Actions.CanStart ? "" : "disabled";
+    var endDisabled = Model.Actions.CanEnd ? "" : "disabled";
+    var startPeriodDisabled = Model.Actions.CanStartPeriod ? "" : "disabled";
+    var endPeriodDisabled = Model.Actions.CanEndPeriod ? "" : "disabled";
+    var timeout1Disabled = Model.Actions.CanCallTimeout1 ? "" : "disabled";
+    var timeout2Disabled = Model.Actions.CanCallTimeout2 ? "" : "disabled";
+    var resumeDisabled = Model.Actions.CanResume ? "" : "disabled";
+    var undoDisabled = Model.Actions.CanUndo ? "" : "disabled";
+}
+<div class="row">
+    <div class="col-xs-6">
+        <table class="table table-bordered">
+            <tr>
+                <td class="match-team">
+                    <span class="badge">@Model.Current.TimeoutSummary1</span>
+                    @Model.Current.Team1
+                </td>
+                <td class="match-team-score">@Model.Current.Goal1</td>
+                <td valign="middle" rowspan="2" class="match-period-container">
+                    <div class="match-period-label">PERIOD</div>
+                    <div class="match-period-current">@Model.Current.Period</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="match-team">
+                    <span class="badge">@Model.Current.TimeoutSummary2</span>
+                    @Model.Current.Team2
+                </td>
+                <td class="match-team-score">@Model.Current.Goal2</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <form action="@Url.Action("action", "match")" method="post">
+        <input type="hidden" name="id" value="@Model.Current.Id" />
+        <div>
+            <button name="whatHappened" value="start" class="btn btn-success" @startDisabled>Start</button>
+            <button name="whatHappened" value="newperiod" class="btn btn-primary" @startPeriodDisabled>New Period</button>
+            <button name="whatHappened" value="endperiod" class="btn btn-primary" @endPeriodDisabled>End Period</button>
+            <button name="whatHappened" value="end" class="btn btn-success" @endDisabled>End</button>
+        </div>
+        <hr />
+        <div>
+            <button name="whatHappened" value="goal1" class="btn btn-warning" @scoreDisabled>Goal 1</button>
+            <button name="whatHappened" value="goal2" class="btn btn-warning" @scoreDisabled>Goal 2</button>
+            <button name="whatHappened" value="timeout1" class="btn btn-warning" @timeout1Disabled>Timeout 1</button>
+            <button name="whatHappened" value="timeout2" class="btn btn-warning" @timeout2Disabled>Timeout 2</button>
+            <button name="whatHappened" value="resume" class="btn btn-warning" @resumeDisabled>Resume</button>
+        </div>
+        <hr />
+        <div>
+            <button name="whatHappened" value="undo" class="btn btn-danger" @undoDisabled>UNDO</button>
+        </div>
+    </form>    
+</div>

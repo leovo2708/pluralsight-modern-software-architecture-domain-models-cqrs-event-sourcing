@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="expoware_MerloModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Matches">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Team1" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Team2" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="int" Nullable="false" />
+          <Property Name="Score1" Type="int" Nullable="false" />
+          <Property Name="Score2" Type="int" Nullable="false" />
+          <Property Name="Period" Type="int" Nullable="false" />
+          <Property Name="Timeouts1" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Timeouts2" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MatchEvents">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MatchId" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Action" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TeamId" Type="int" />
+          <Property Name="PlayerId" Type="int" />
+          <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+          <Property Name="Team1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Team2" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="expoware_MerloModelStoreContainer">
+          <EntitySet Name="Matches" EntityType="Self.Matches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MatchEvents" EntityType="Self.MatchEvents" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="expoware_MerloModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MerloEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MatchEvents" EntityType="expoware_MerloModel.MatchEvent" />
+          <EntitySet Name="Matches" EntityType="expoware_MerloModel.Match" />
+        </EntityContainer>
+        <EntityType Name="MatchEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Action" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TeamId" Type="Int32" />
+          <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MatchId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Team1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Team2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PlayerId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Match">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Team1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Team2" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Int32" Nullable="false" />
+          <Property Name="Score1" Type="Int32" Nullable="false" />
+          <Property Name="Score2" Type="Int32" Nullable="false" />
+          <Property Name="Period" Type="Int32" Nullable="false" />
+          <Property Name="Timeouts1" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Timeouts2" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="expoware_MerloModelStoreContainer" CdmEntityContainer="MerloEntities">
+          <EntitySetMapping Name="MatchEvents">
+            <EntityTypeMapping TypeName="expoware_MerloModel.MatchEvent">
+              <MappingFragment StoreEntitySet="MatchEvents">
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="Team2" ColumnName="Team2" />
+                <ScalarProperty Name="Team1" ColumnName="Team1" />
+                <ScalarProperty Name="MatchId" ColumnName="MatchId" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matches">
+            <EntityTypeMapping TypeName="expoware_MerloModel.Match">
+              <MappingFragment StoreEntitySet="Matches">
+                <ScalarProperty Name="Timeouts2" ColumnName="Timeouts2" />
+                <ScalarProperty Name="Timeouts1" ColumnName="Timeouts1" />
+                <ScalarProperty Name="Period" ColumnName="Period" />
+                <ScalarProperty Name="Score2" ColumnName="Score2" />
+                <ScalarProperty Name="Score1" ColumnName="Score1" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Team2" ColumnName="Team2" />
+                <ScalarProperty Name="Team1" ColumnName="Team1" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

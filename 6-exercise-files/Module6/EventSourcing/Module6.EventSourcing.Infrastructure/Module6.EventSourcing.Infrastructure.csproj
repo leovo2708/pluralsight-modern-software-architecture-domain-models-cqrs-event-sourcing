@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3D3D7826-5BAD-47BA-98D3-60062790A4CA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Module6.EventSourcing.Infrastructure</RootNamespace>
+    <AssemblyName>Module6.EventSourcing.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web.Extensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extras\Backend\MerloXtra.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MerloXtra.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Extras\Backend\MerloXtra.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MerloXtra.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Extras\Backend\MerloXtra.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MerloXtra.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Extras\Backend\SentEmail.cs">
+      <DependentUpon>MerloXtra.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Extras\EmailService.cs" />
+    <Compile Include="Framework\Command.cs" />
+    <Compile Include="Framework\CommandResponse.cs" />
+    <Compile Include="Framework\Event.cs" />
+    <Compile Include="Framework\EventStore\SqlEventStore.cs" />
+    <EntityDeploy Include="Extras\Backend\MerloXtra.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MerloXtra.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="App.Config" />
+    <None Include="Extras\Backend\MerloXtra.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MerloXtra.edmx</DependentUpon>
+      <LastGenOutput>MerloXtra.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Extras\Backend\MerloXtra.edmx.diagram">
+      <DependentUpon>MerloXtra.edmx</DependentUpon>
+    </None>
+    <None Include="Extras\Backend\MerloXtra.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MerloXtra.edmx</DependentUpon>
+      <LastGenOutput>MerloXtra.cs</LastGenOutput>
+    </None>
+    <None Include="Framework\EventType.cs" />
+    <Compile Include="Framework\Handler.cs" />
+    <Compile Include="Framework\IBus.cs" />
+    <Compile Include="Framework\EventStore\IEventStore.cs" />
+    <Compile Include="Framework\IHandleMessage.cs" />
+    <Compile Include="Framework\InMemoryBus.cs" />
+    <Compile Include="Framework\Repositories\IRepository.cs" />
+    <Compile Include="Framework\IStartWithMessage.cs" />
+    <Compile Include="Framework\Message.cs" />
+    <Compile Include="Framework\Saga.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Module6.EventSourcing.CommandStack.Domain\Module6.EventSourcing.CommandStack.Domain.csproj">
+      <Project>{580927D3-D359-43C5-B317-616375B5C542}</Project>
+      <Name>Module6.EventSourcing.CommandStack.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Module6.EventSourcing.Infrastructure.EventStore.SqlServer\Module6.EventSourcing.Infrastructure.EventStore.SqlServer.csproj">
+      <Project>{0B8EC8E5-42CB-41ED-8F4D-3390E039EB13}</Project>
+      <Name>Module6.EventSourcing.Infrastructure.EventStore.SqlServer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,55 @@
+﻿@model Module5.Premium.Server.ViewModels.LiveViewModel
+
+<style>
+.live-period {
+    background-color: #222;
+    color: #eee;
+    font-weight: bold;
+    font-size: 1.8em;
+}   
+.live-team {
+    font-size: 1.1em;
+}
+.live-score {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+.live-inplay {
+    background-color: #0a0;
+    color: #ffe;
+}
+.live-paused {
+    background-color: #f00;
+    color: #ffe;
+}
+</style>
+
+@if (!Model.LiveMatches.Any())
+{
+    <p>No live matches found.</p>
+    return;
+}
+
+<div class="col-xs-5">
+    <table class="table table-condensed table-bordered">
+        @foreach (var m in Model.LiveMatches)
+        {
+            var cssStatus = m.IsBallInPlay ? "live-inplay" : "live-paused";
+            <tr>
+                <td class="live-period">@m.Period</td>
+                <td class="live-team">
+                    <span class="badge">@m.TimeoutSummary1</span>
+                    @m.Team1
+                </td>
+                <td>vs</td>
+                <td class="live-team">
+                    <span class="badge">@m.TimeoutSummary2</span>
+                    @m.Team2
+                </td>
+                <td class="live-score">@m.Goal1</td>
+                <td class="live-score">@m.Goal2</td>
+                <td class="@cssStatus">@m.State</td>
+            </tr>
+        }
+    </table>
+</div>

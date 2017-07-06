@@ -1,0 +1,16 @@
+﻿body {
+    padding-top: 90px;
+    padding-bottom: 120px;
+}
+
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.list-group a:hover {
+    background-color: #f00;
+    opacity: 0.5;
+}
+
+

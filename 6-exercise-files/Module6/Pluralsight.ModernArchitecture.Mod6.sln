@@ -1,0 +1,76 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventSourcing", "EventSourcing", "{F3C1D7D9-36C7-4846-A39C-864614E9EE34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module6.EventSourcing.Infrastructure.EventStore.SqlServer", "EventSourcing\Module6.EventSourcing.Infrastructure.EventStore.SqlServer\Module6.EventSourcing.Infrastructure.EventStore.SqlServer.csproj", "{0B8EC8E5-42CB-41ED-8F4D-3390E039EB13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module6.EventSourcing.CommandStack.Domain", "EventSourcing\Module6.EventSourcing.CommandStack.Domain\Module6.EventSourcing.CommandStack.Domain.csproj", "{580927D3-D359-43C5-B317-616375B5C542}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module6.EventSourcing.Infrastructure", "EventSourcing\Module6.EventSourcing.Infrastructure\Module6.EventSourcing.Infrastructure.csproj", "{3D3D7826-5BAD-47BA-98D3-60062790A4CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module6.EventSourcing.Infrastructure.Persistence.SqlServer", "EventSourcing\Module6.EventSourcing.Infrastructure.Persistence.SqlServer\Module6.EventSourcing.Infrastructure.Persistence.SqlServer.csproj", "{FE3E2CFA-B5E6-4386-8260-5AC2C444C032}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module6.EventSourcing.CommandStack", "EventSourcing\Module6.EventSourcing.CommandStack\Module6.EventSourcing.CommandStack.csproj", "{D82451D4-8E3D-4DAE-AC22-54CC4CCB3E5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module6.EventSourcing.QueryStack", "EventSourcing\Module6.EventSourcing.QueryStack\Module6.EventSourcing.QueryStack.csproj", "{13D1B635-D40A-4EF6-B50F-3CE63B88B2B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module6.EventSourcing.Server", "EventSourcing\Module6.EventSourcing.Server\Module6.EventSourcing.Server.csproj", "{8F047591-DF51-4390-8B25-FA7DCF6BB9DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module6.EventSourcing.SharedKernel", "EventSourcing\Module6.EventSourcing.SharedKernel\Module6.EventSourcing.SharedKernel.csproj", "{C950AC4D-F9D3-4C65-90EB-F40496501B0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B8EC8E5-42CB-41ED-8F4D-3390E039EB13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B8EC8E5-42CB-41ED-8F4D-3390E039EB13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B8EC8E5-42CB-41ED-8F4D-3390E039EB13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B8EC8E5-42CB-41ED-8F4D-3390E039EB13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{580927D3-D359-43C5-B317-616375B5C542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{580927D3-D359-43C5-B317-616375B5C542}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{580927D3-D359-43C5-B317-616375B5C542}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{580927D3-D359-43C5-B317-616375B5C542}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D3D7826-5BAD-47BA-98D3-60062790A4CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D3D7826-5BAD-47BA-98D3-60062790A4CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D3D7826-5BAD-47BA-98D3-60062790A4CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D3D7826-5BAD-47BA-98D3-60062790A4CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE3E2CFA-B5E6-4386-8260-5AC2C444C032}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE3E2CFA-B5E6-4386-8260-5AC2C444C032}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE3E2CFA-B5E6-4386-8260-5AC2C444C032}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE3E2CFA-B5E6-4386-8260-5AC2C444C032}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D82451D4-8E3D-4DAE-AC22-54CC4CCB3E5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D82451D4-8E3D-4DAE-AC22-54CC4CCB3E5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D82451D4-8E3D-4DAE-AC22-54CC4CCB3E5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D82451D4-8E3D-4DAE-AC22-54CC4CCB3E5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13D1B635-D40A-4EF6-B50F-3CE63B88B2B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13D1B635-D40A-4EF6-B50F-3CE63B88B2B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13D1B635-D40A-4EF6-B50F-3CE63B88B2B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13D1B635-D40A-4EF6-B50F-3CE63B88B2B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F047591-DF51-4390-8B25-FA7DCF6BB9DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F047591-DF51-4390-8B25-FA7DCF6BB9DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F047591-DF51-4390-8B25-FA7DCF6BB9DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F047591-DF51-4390-8B25-FA7DCF6BB9DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C950AC4D-F9D3-4C65-90EB-F40496501B0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C950AC4D-F9D3-4C65-90EB-F40496501B0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C950AC4D-F9D3-4C65-90EB-F40496501B0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C950AC4D-F9D3-4C65-90EB-F40496501B0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0B8EC8E5-42CB-41ED-8F4D-3390E039EB13} = {F3C1D7D9-36C7-4846-A39C-864614E9EE34}
+		{580927D3-D359-43C5-B317-616375B5C542} = {F3C1D7D9-36C7-4846-A39C-864614E9EE34}
+		{3D3D7826-5BAD-47BA-98D3-60062790A4CA} = {F3C1D7D9-36C7-4846-A39C-864614E9EE34}
+		{FE3E2CFA-B5E6-4386-8260-5AC2C444C032} = {F3C1D7D9-36C7-4846-A39C-864614E9EE34}
+		{D82451D4-8E3D-4DAE-AC22-54CC4CCB3E5F} = {F3C1D7D9-36C7-4846-A39C-864614E9EE34}
+		{13D1B635-D40A-4EF6-B50F-3CE63B88B2B8} = {F3C1D7D9-36C7-4846-A39C-864614E9EE34}
+		{8F047591-DF51-4390-8B25-FA7DCF6BB9DC} = {F3C1D7D9-36C7-4846-A39C-864614E9EE34}
+		{C950AC4D-F9D3-4C65-90EB-F40496501B0B} = {F3C1D7D9-36C7-4846-A39C-864614E9EE34}
+	EndGlobalSection
+EndGlobal

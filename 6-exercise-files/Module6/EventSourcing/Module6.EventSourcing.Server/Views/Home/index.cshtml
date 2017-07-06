@@ -1,0 +1,212 @@
+﻿@model  Module6.EventSourcing.Server.ViewModels.IndexViewModel
+
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6">
+        @if (Model.CourtSchedules.Count == 0)
+        {
+            <h2>No courts found.</h2>
+            return;
+        }
+
+        <div role="tabpanel">
+            <!-- Nav tabs -->
+            <ul class="nav nav-pills" role="tablist">
+                @{ var firstTab = true; }
+                @foreach (var schedule in Model.CourtSchedules)
+                {
+                    var active = firstTab ? "active" : "";
+                    firstTab = false;
+                    var courtId = String.Format("court-{0}", schedule.CourtId);
+
+                    <li role="presentation" class="@active">
+                        <a href="#@courtId" aria-controls="@courtId" role="tab" data-toggle="tab" class="btn">
+                            @schedule.CourtName
+                        </a>
+                    </li>
+                }
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                @{ var firstTabContent = true; }
+                @foreach (var schedule in Model.CourtSchedules)
+                {
+                    var active = firstTabContent ? "active" : "";
+                    firstTabContent = false;
+                    var tabId = String.Format("court-{0}", schedule.CourtId);
+                    <div role="tabpanel" class="tab-pane @active" id="@tabId">
+                        <table class="table-bordered table table-condensed">
+                            @foreach (var slot in schedule.Slots)
+                            {
+                                var i = 1;
+                                do
+                                {
+                                    var display = slot.IsAvailable() ? "Available" : String.Format("Booked : {0}", slot.BookingId);
+                                    var css = slot.IsAvailable() ? "slot-free" : "slot-taken";
+                                    var starting = slot.StartingAt + (i - 1);
+                                    <tr class="slot @css">
+                                        <td class="slot-hour">@String.Format("{0}:00", starting.ToString("D2"))</td>
+                                        <td>
+                                            @if (slot.IsAvailable())
+                                            {
+                                                <button onclick="book(@schedule.CourtId, @starting)">@display</button>
+                                            }
+                                            else
+                                            {
+                                                <span data-toggle="tooltip" data-placement="top">@display</span>
+                                                <button type="button" class="btn btn-default editbutton pull-right" data-id="@slot.BookingId" data-toggle="modal" data-target="#editBooking">
+                                                    Edit
+                                                </button>
+                                                <button type="button" class="btn btn-default viewbutton pull-right" data-id="@slot.BookingId" data-toggle="modal" data-target="#viewBooking">
+                                                    View
+                                                </button>
+                                            }
+                                        </td>
+                                    </tr>
+                                            i++;
+                                } while (i <= slot.Length);
+                            }
+                        </table>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6">
+        <button id="bookNow" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#bookingPanel" aria-expanded="false" aria-controls="bookingPanel">
+            Book now
+        </button>
+        <div class="collapse" id="bookingPanel">
+            <div class="well">
+                <form method="post" action="@Url.Action("add", "booking")">
+                    <div class="form-group">
+                        <label for="courtid">Court</label>
+                        <br />
+                        <select style="padding: 4px; width: 100%" name="courtid" id="courtid">
+                            @foreach (var c in Model.CourtSchedules)
+                            {
+                                <option value="@c.CourtId">@c.CourtName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="hour">Time of the day</label>
+                        <input type="number" class="form-control" name="hour" id="hour" placeholder="Start time">
+                    </div>
+                    <div class="form-group">
+                        <label for="length">Length</label>
+                        <br />
+                        <select style="padding: 4px; width: 100%" name="length" id="length">
+                            <option value="1">1 hour</option>
+                            <option value="2">2 hours</option>
+                            <option value="3">3 hours</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="length">Name</label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="length">Notes</label>
+                        <input type="text" class="form-control" name="notes" id="notes" placeholder="Notes">
+                    </div>
+                    <button class="btn btn-success">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editBooking">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Booking <span id="bookingId"></span></h4>
+            </div>
+            <form method="post" action="@Url.Action("edit", "booking")">
+                <div class="modal-body">
+
+                    <input type="hidden" id="current-id" name="id" />
+                    <input type="text" id="current-hour" name="hour" />
+                    <br />
+                    <input type="text" id="current-name" name="name" />
+                    <br />
+                    <input type="text" id="current-length" name="length" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(".editbutton").on("click", function () {
+        var bookingId = $(this).data('id');
+        $("#bookingId").html(bookingId);
+        $("#current-id").val(bookingId);
+
+        $.ajax({
+            url: ROOTSERVER + "/api/booking/" + bookingId,
+            cache: false
+        }).done(function (data) {
+            $("#current-name").val(data.Name);
+            $("#current-hour").val(data.StartingAt);
+            $("#current-length").val(data.Length);
+        });
+    });
+</script>
+
+
+<div class="modal fade" id="viewBooking">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Booking <span id="viewBookingId"></span> :: History</h4>
+            </div>
+            <div class="modal-body">
+                <p id="history"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(".viewbutton").on("click", function () {
+        var bookingId = $(this).data('id');
+        $("#viewBookingId").html(bookingId);
+
+        $.ajax({
+            url: ROOTSERVER + "/api/bookinghistory/" + bookingId,
+            cache: false
+        }).done(function (data) {
+            var html = "<table class='table'>";
+            html += "<thead><th>Action</th><th>When</th><th>Court Id</th><th>Starting at</th><th>Length</th><th>Name</th></thead>";
+            for (var i = 0; i < data.ChangeList.length; i++) {
+                var change = data.ChangeList[i];
+                html += "<tr>";
+                html += "<td>" + change.Action + "</td>";
+                html += "<td>" + change.When + "</td>";
+                html += "<td>" + change.CourtId + "</td>";
+                html += "<td>" + change.StartingAt + "</td>";
+                html += "<td>" + change.Length + "</td>";
+                html += "<td>" + change.Name + "</td>";
+                html += "</tr>";
+            }
+            html += "</table>";
+            $("#history").html(html);
+        });
+    });
+</script>
